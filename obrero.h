@@ -5,7 +5,7 @@
 
 enum class TipoJornada
 {
-    Matituna,
+    Matutina,
     Vespertina,
     Nocturna
 };
@@ -29,17 +29,21 @@ public:
     void setSalarioNeto(double newSalarioNeto);
     double descuento() const;
     void setDescuento(double newDescuento);
+
     QString toString();
 
 signals:
+
 private:
-    QString jornada2String();
+
     QString m_nombre;
     int m_horas;
     TipoJornada m_jornada;
     double m_salarioBruto;
     double m_salarioNeto;
     double m_descuento;
+
+    QString jornada2String();
 };
 
 #endif // OBRERO_H

@@ -2,6 +2,10 @@
 #define SALARIOS_H
 
 #include <QMainWindow>
+#include <QDebug>
+#include "obrero.h"
+#include <QMessageBox>
+#include "controlador.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Salarios; }
@@ -15,7 +19,11 @@ public:
     Salarios(QWidget *parent = nullptr);
     ~Salarios();
 
+private slots:
+    void on_btnCalcular_clicked();
+
 private:
     Ui::Salarios *ui;
+     Controlador *m_contolador;
 };
 #endif // SALARIOS_H

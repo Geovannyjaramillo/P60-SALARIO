@@ -8,7 +8,11 @@ obrero::obrero(QObject *parent)
 obrero::obrero(const QString &nombre, int horas, TipoJornada jornada) : m_nombre(nombre),
     m_horas(horas),
     m_jornada(jornada)
-{}
+{
+    m_salarioBruto = 0;
+    m_salarioNeto = 0;
+    m_descuento = 0;
+}
 const QString &obrero::nombre() const
 {
     return m_nombre;
@@ -84,7 +88,7 @@ QString obrero::toString()
 QString obrero::jornada2String()
 {
     switch (m_jornada) {
-    case TipoJornada::Matituna:
+    case TipoJornada::Matutina:
         return "Matutina";
         break;
     case TipoJornada::Vespertina:
