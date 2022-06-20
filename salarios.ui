@@ -171,8 +171,71 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuArchivos">
+    <property name="title">
+     <string>Archivos</string>
+    </property>
+    <addaction name="actionNuevo"/>
+    <addaction name="actionAbrir"/>
+    <addaction name="actionGuardar"/>
+    <addaction name="actionCalcular"/>
+    <addaction name="actionSalir"/>
+   </widget>
+   <widget class="QMenu" name="menuA_yuda">
+    <property name="title">
+     <string>A&amp;yuda</string>
+    </property>
+    <addaction name="actionAcerca_de"/>
+   </widget>
+   <addaction name="menuArchivos"/>
+   <addaction name="menuA_yuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNuevo">
+   <property name="text">
+    <string>&amp;Nuevo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionAbrir">
+   <property name="text">
+    <string>&amp;Abrir</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionGuardar">
+   <property name="text">
+    <string>&amp;Guardar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionCalcular">
+   <property name="text">
+    <string>&amp;Calcular</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>&amp;Salir</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAcerca_de">
+   <property name="text">
+    <string>Acerca de</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
