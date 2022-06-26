@@ -7,6 +7,7 @@ Salarios::Salarios(QWidget *parent)
 {
     ui->setupUi(this);
     m_contolador = new Controlador();
+    m_porGuardar = false;
 }
 
 Salarios::~Salarios()
@@ -45,6 +46,7 @@ void Salarios::calcular()
     } else {
         qDebug() << "No se pudo calcular salarios";
     }*/
+
     // Obtener datos de la GUI
     QString nombre = ui->inNombre->text();
     int horas = ui->inHoras->value();
@@ -66,8 +68,10 @@ void Salarios::calcular()
     m_contolador->setDatos(nombre, horas, jornada);
     // Calcular salarios
     if (m_contolador->calcular()) {
-        // Muestra los resultados
+    // Muestra los resultados
         ui->outCalculos->appendPlainText(m_contolador->getDatos());
+        // hay datos por guardar
+           m_porGuardar = true;
     } else {
         QMessageBox::critical(
                     this,
@@ -81,6 +85,60 @@ void Salarios::calcular()
 
 }
 
+void Salarios::salir()
+{
+    if (m_porGuardar){
+          int respuesta = QMessageBox::warning(
+                      this,"Salir",
+                      "¿Desea guardar el archivo?","Si","No");
+          if (respuesta == QMessageBox::AcceptRole){
+               on_actionGuardar_triggered();
+          }
+      }
+
+    this->close();
+}
+
+void Salarios::abrir()
+{
+    if (m_porGuardar){
+          int respuesta = QMessageBox::warning(
+                      this,"Abrir",
+                      "¿Desea guardar el archivo actual?","Si","No");
+          if (respuesta == QMessageBox::AcceptRole){
+               on_actionGuardar_triggered();
+          }
+      }
+
+    // Abrir archivo
+        QString nombreArchivo = QFileDialog::getOpenFileName(this,
+                                                             "Abrir archivo",
+                                                             QDir::home().absolutePath(),
+                                                             "Archivos de salarios (*.txt)");
+
+        // Crear un objeto QFile
+        QFile archivo(nombreArchivo);
+        // Abrirlo para lectura
+        if(archivo.open(QFile::ReadOnly)){
+            // Crear un 'stream' de texto
+            QTextStream entrada(&archivo);
+            // Leer todo el contenido del archivo
+            QString datos = entrada.readAll();
+            // Cargar el contenido al área de texto
+            ui->outCalculos->clear();
+            ui->outCalculos->setPlainText(datos);
+            // Mostrar 5 segundo que todo fue bien
+            ui->statusbar->showMessage("Datos leidos desde " + nombreArchivo, 5000);
+        }else {
+            // Mensaje de error si no se puede abrir el archivo
+            QMessageBox::warning(this,
+                                 "Abrir datos",
+                                 "No se pudo abrir el archivo");
+        }
+        // Cerrar el archivo
+        archivo.close();
+}
+
 void Salarios::on_actionCalcular_triggered()
 {
     calcular();
@@ -88,7 +146,7 @@ void Salarios::on_actionCalcular_triggered()
 
 void Salarios::on_actionSalir_triggered()
 {
-    this->close();
+    salir();
 }
 void Salarios::on_actionGuardar_triggered()
 {
@@ -109,6 +167,8 @@ void Salarios::on_actionGuardar_triggered()
         ui->statusbar->showMessage("Datos guardados en: " + nombreArchivo, 5000);
         // Cerrar el archivo
         archivo.close();
+        // bajar la bandera
+        m_porGuardar = false;
     }else {
         // Mensaje de error
         QMessageBox::warning(this,
@@ -116,7 +176,6 @@ void Salarios::on_actionGuardar_triggered()
                              "No se puede acceder al archivo para guardar los datos.");
     }
 }
-
 
 void Salarios::on_actionAcerca_de_triggered()
 {
@@ -128,5 +187,10 @@ void Salarios::on_actionAcerca_de_triggered()
     dialog->exec();
     // Luego de cerrar la ventana, se acceden a los datos de la misma
     qDebug() << dialog->valor();
+}
+
+void Salarios::on_actionAbrir_triggered()
+{
+    abrir();
 }
 

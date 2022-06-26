@@ -10,7 +10,7 @@
 #include "acerca.h"
 #include "obrero.h"
 
-#define VERSION "0.1"
+#define VERSION "0.2"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Salarios; }
@@ -37,10 +37,15 @@ private slots:
 
     void on_actionAcerca_de_triggered();
 
+    void on_actionAbrir_triggered();
+
 private:
     Ui::Salarios *ui;
      Controlador *m_contolador;
      void limpiar();
      void calcular();
+     void salir();
+     void abrir();
+     bool m_porGuardar;
 };
 #endif // SALARIOS_H
